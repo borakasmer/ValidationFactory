@@ -1,0 +1,78 @@
+﻿@model ResultModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="text-center">
+            <h1 class="display-4">Welcome</h1>
+            <p>Learn about <a href="https://borakasmer.com">building Web apps with ASP.NET Core</a>.</p>
+
+            @if (Model.Exception.Count > 0)
+            {
+                <h1>User Error List</h1>
+                <table class="table table-sm table-dark">
+                    <tr>
+                        <th scope="col">
+                            Source
+                        </th>
+                        <th scope="col">
+                            Execption Message
+                        </th>
+                    </tr>
+                    @{
+                        int rowCount = 0;
+                    }
+                    @foreach (var err in Model.Exception)
+                    {
+                        rowCount += 1;
+                        <tr @((rowCount%2)==0 ? "class=table-primary" : "class=table-secondary")>
+                            <td>
+                                @Html.DisplayFor(modelItem => err.Source)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => err.Message)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <font color="green"><h1>User Has No Error</h1></font>
+            }
+
+            <input type="submit" class="btn btn-primary" value="Post Page" />
+            <hr />
+            <h2>User Detail</h2>
+            <dl class="row" style="text-align: left;">
+                <dt class="col-sm-3">User Name:</dt>
+                <dd class="col-sm-9">@Model.User.Name</dd>
+
+                <dt class="col-sm-3">User Surname:</dt>
+                <dd class="col-sm-9">@Model.User.LastName</dd>
+
+                <dt class="col-sm-3">User Username:</dt>
+                <dd class="col-sm-9">@Model.User.UserName</dd>
+
+                <dt class="col-sm-3">User BirthDate:</dt>
+                <dd class="col-sm-9">@Model.User.BirthDate</dd>
+
+                <dt class="col-sm-3">User Email:</dt>
+                <dd class="col-sm-9">@Model.User.Email</dd>
+
+                <dt class="col-sm-3">User Gmail:</dt>
+                <dd class="col-sm-9">@Model.User.Email2</dd>
+
+                <dt class="col-sm-3">User Gsm:</dt>
+                <dd class="col-sm-9">@Model.User.Gsm</dd>
+
+                <dt class="col-sm-3">User Password:</dt>
+                <dd class="col-sm-9">
+                    <p>@Model.User.Password</p>
+                </dd>
+            </dl>
+        </div>
+    }
+</body>
